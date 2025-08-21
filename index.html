@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portofolio — Jalu Zakaria Anwar</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50:  '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1', /* indigo soft */
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81'
+            },
+            accent: {
+              500: '#0ea5e9', /* sky */
+              600: '#0284c7'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Base UI tweaks -->
+  <style>
+    html { scroll-behavior: smooth; scrollbar-width: none; }
+    ::-webkit-scrollbar { display: none; }
+
+    /* Reveal on scroll helper */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; transform: none; opacity: 1; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body class="font-sans bg-gray-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 selection:bg-brand-200/60 selection:text-slate-900">
+
+  <!-- =============== NAVBAR =============== -->
+  <header class="fixed inset-x-0 top-0 z-50 bg-white/80 dark:bg-slate-800/70 backdrop-blur border-b border-slate-200/60 dark:border-slate-700/60">
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex h-16 items-center justify-between">
+        <!-- Brand -->
+        <a href="#home" class="flex items-center gap-2 font-semibold">
+          <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-brand-500 text-white">JZ</span>
+          <span class="text-brand-700 dark:text-brand-200">Jalu Zakaria Anwar</span>
+        </a>
+
+        <!-- Desktop menu -->
+        <ul id="navMenu" class="hidden md:flex items-center gap-6">
+          <li><a class="hover:text-brand-600 dark:hover:text-brand-300" href="#home">Beranda</a></li>
+          <li><a class="hover:text-brand-600 dark:hover:text-brand-300" href="#projects">Proyek</a></li>
+          <li><a class="hover:text-brand-600 dark:hover:text-brand-300" href="#about">Tentang</a></li>
+          <li><a class="hover:text-brand-600 dark:hover:text-brand-300" href="#skills">Keahlian</a></li>
+          <li><a class="hover:text-brand-600 dark:hover:text-brand-300" href="#contact">Kontak</a></li>
+        </ul>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-2">
+          <!-- Theme toggle -->
+          <button id="themeToggle"
+                  class="group inline-flex items-center gap-2 rounded-xl bg-brand-600 text-white px-3 py-2 text-sm shadow hover:bg-brand-500 active:scale-[.98] transition"
+                  aria-label="Ganti mode tema">
+            <!-- Icon container -->
+            <span class="relative inline-flex h-5 w-5">
+              <!-- Sun -->
+              <svg id="iconSun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                   class="absolute inset-0 h-5 w-5 opacity-100 dark:opacity-0 transition-opacity duration-300">
+                <path fill="currentColor" d="M6.76 4.84l-1.8-1.79L3.17 4.84l1.79 1.79l1.8-1.79zm10.48 0l1.79-1.79l1.79 1.79l-1.79 1.79l-1.79-1.79zM12 4V1h-0v3h0zm0 19v-3h0v3h0zM4 12H1v0h3v0zm19 0h-3v0h3v0zM6.76 19.16l-1.8 1.79l-1.79-1.79l1.79-1.79l1.8 1.79zm10.48 0l1.79 1.79l1.79-1.79l-1.79-1.79l-1.79 1.79zM12 8a4 4 0 100 8a4 4 0 000-8z"/>
+              </svg>
+              <!-- Moon -->
+              <svg id="iconMoon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                   class="absolute inset-0 h-5 w-5 opacity-0 dark:opacity-100 transition-opacity duration-300">
+                <path fill="currentColor" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/>
+              </svg>
+            </span>
+            <span class="hidden sm:inline">Mode</span>
+          </button>
+
+          <!-- Mobile toggle -->
+          <button id="mobileToggle" class="md:hidden inline-flex items-center justify-center h-9 w-9 rounded-xl border border-slate-300/70 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 transition" aria-label="Buka menu">
+            <svg id="iconHamburger" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            <svg id="iconClose" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile menu panel -->
+      <div id="mobilePanel" class="md:hidden hidden pb-4">
+        <ul class="flex flex-col gap-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-800/70 p-4">
+          <li><a class="block px-2 py-2 rounded-lg hover:bg-brand-50 dark:hover:bg-slate-700/80" href="#home">Beranda</a></li>
+          <li><a class="block px-2 py-2 rounded-lg hover:bg-brand-50 dark:hover:bg-slate-700/80" href="#projects">Proyek</a></li>
+          <li><a class="block px-2 py-2 rounded-lg hover:bg-brand-50 dark:hover:bg-slate-700/80" href="#about">Tentang</a></li>
+          <li><a class="block px-2 py-2 rounded-lg hover:bg-brand-50 dark:hover:bg-slate-700/80" href="#skills">Keahlian</a></li>
+          <li><a class="block px-2 py-2 rounded-lg hover:bg-brand-50 dark:hover:bg-slate-700/80" href="#contact">Kontak</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="pt-16">
+
+    <!-- =============== HOME (1/5) =============== -->
+    <section id="home" class="min-h-[100svh] flex items-center bg-gradient-to-br from-brand-500 to-accent-500 dark:from-slate-800 dark:to-slate-900 text-white">
+      <div class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-10 items-center reveal">
+        <div class="space-y-5">
+          <p class="inline-flex items-center gap-2 text-sm tracking-wide uppercase">
+            <span class="h-1.5 w-1.5 rounded-full bg-white/90"></span> Frontend • UI Enthusiast
+          </p>
+          <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight">Halo, saya <span class="underline decoration-white/60 underline-offset-4">Jalu Zakaria Anwar</span></h1>
+          <p class="text-white/95 text-lg">Siswa XII RPL 3 SMKN 4 Bandung, fokus pada Frontend Development. Suka membangun UI yang responsif, bersih, dan nyaman digunakan.</p>
+          <div class="flex flex-wrap gap-3">
+            <a href="#projects" class="inline-flex items-center gap-2 rounded-2xl bg-white text-brand-700 px-5 py-3 font-semibold shadow hover:shadow-md active:scale-[.98] transition">
+              Lihat Proyek
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M13 5l7 7-7 7v-4H4v-6h9V5z"/></svg>
+            </a>
+            <a href="#contact" class="inline-flex items-center gap-2 rounded-2xl border border-white/70 px-5 py-3 font-semibold hover:bg-white/10 transition">
+              Hubungi Saya
+            </a>
+          </div>
+        </div>
+        <div class="flex md:justify-end">
+          <img src="images/jal.png  " alt="Foto Jalu" class="w-56 sm:w-64 md:w-72 aspect-square object-cover rounded-full ring-8 ring-white/20 shadow-2xl">
+        </div>
+      </div>
+    </section>
+
+     <!-- =============== ABOUT (3/5) =============== -->
+    <section id="about" class="min-h-[100svh] bg-slate-50 dark:bg-slate-950">
+      <div class="max-w-5xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-10 items-center reveal">
+        <div class="order-2 md:order-1 space-y-4">
+          <h2 class="text-3xl sm:text-4xl font-bold text-brand-700 dark:text-brand-200">Tentang Saya</h2>
+          <p class="text-slate-700 dark:text-slate-300">
+            Saya bersemangat pada frontend development dan UI. Terbiasa dengan HTML, CSS, JS, serta kolaborasi menggunakan Git.
+            Tujuan saya: membangun pengalaman digital yang sederhana, cepat, dan menyenangkan digunakan.
+          </p>
+          <ul class="grid sm:grid-cols-2 gap-3 text-sm">
+            <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span> Responsive & Accessible UI</li>
+            <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-sky-500"></span> Clean Code & Reusable</li>
+            <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-violet-500"></span> Version Control (Git)</li>
+            <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span> Continuous Learning</li>
+          </ul>
+        </div>
+        <div class="order-1 md:order-2">
+          <div class="mx-auto w-56 sm:w-64 md:w-72 aspect-square rounded-[2rem] bg-gradient-to-br from-brand-500 to-accent-500 p-1">
+            <img src="images/jal.png" alt="Avatar Jalu" class="h-full w-full object-cover rounded-[1.75rem] ring-8 ring-white/30 dark:ring-white/10 shadow-2xl">
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- PROJECTS SECTION -->
+<section id="projects" class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-6 py-20">
+  <div class="max-w-6xl w-full text-center">
+    <h2 class="text-4xl font-bold mb-12 text-gray-900 dark:text-gray-100">Projects</h2>
+
+    <!-- Grid Layout -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Proyek 1: Aplikasi Peminjaman Aset -->
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:scale-105 transform transition">
+        <img src="images/aset_peminjaman.png" alt="Aplikasi Peminjaman Aset" class="rounded-xl mb-4 object-cover w-full h-48">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">Aplikasi Peminjaman Aset</h3>
+        <p class="text-gray-700 dark:text-gray-300 mb-4">
+          Aplikasi berbasis <b>Android Studio</b> untuk memantau dan manajemen aset jurusan sekolah.
+        </p>
+      </div>
+
+      <!-- Proyek 2: Dreamscape Trials -->
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:scale-105 transform transition">
+        <img src="images/dreamscape.png" alt="Dreamscape Trials" class="rounded-xl mb-4 object-cover w-full h-48">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">Dreamscape Trials</h3>
+        <p class="text-gray-700 dark:text-gray-300 mb-4">
+          Game berbasis <b>Roblox Studio</b> dengan fokus pada <i>parkour</i> dan <i>puzzle</i>.
+        </p>
+        <a href="https://www.roblox.com/games/115103908516699/Dreamscape-Trials#!/store" target="_blank"
+           class="inline-block px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition">
+          Mainkan Game
+        </a>
+      </div>
+
+      <!-- Proyek 3: Aplikasi Kasir -->
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:scale-105 transform transition">
+        <img src="images/kasir_netbean.png" alt="Aplikasi Kasir" class="rounded-xl mb-4 object-cover w-full h-48">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">Aplikasi Kasir</h3>
+        <p class="text-gray-700 dark:text-gray-300 mb-4">
+          Aplikasi sederhana berbasis <b>NetBeans Java</b> untuk mengelola transaksi penjualan.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+    <!-- EXPERIENCE SECTION -->
+<section id="experience" class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-6 py-20">
+  <div class="max-w-5xl w-full text-center">
+    <h2 class="text-4xl font-bold mb-12 text-gray-900 dark:text-gray-100">
+      Experience
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      <!-- Logo + Deskripsi -->
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg">
+        <img src="images/novelty.png" alt="Novelty Logo" class="mx-auto w-32 h-32 object-contain mb-6">
+        <h3 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
+          Novelty Technologies
+        </h3>
+        <p class="text-gray-700 dark:text-gray-300 mb-4">
+          Komunitas berbasis <b>Discord & Roblox Studio</b> dengan lebih dari <b>600 member</b>. 
+          Fokus menjual <i>high quality & affordable price</i> aset untuk Roblox Studio.
+        </p>
+        <a href="https://www.roblox.com/games/9729860920/Novelty-Official-Store" target="_blank" 
+           class="inline-block px-6 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition">
+          Lihat Game
+        </a>
+      </div>
+
+      <!-- Screenshot Toko -->
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg flex justify-center">
+        <img src="images/halaman_novelty.png" alt="Novelty Store Page" 
+             class="rounded-xl shadow-md object-cover max-h-[400px]">
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- =============== SKILLS (4/5) =============== -->
+    <section id="skills" class="min-h-[100svh] bg-white dark:bg-slate-900">
+      <div class="max-w-6xl mx-auto px-6 py-20 reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-center text-brand-700 dark:text-brand-200">Keahlian</h2>
+        <p class="mt-3 text-center text-slate-600 dark:text-slate-300">Kelompok skill inti yang sering saya gunakan.</p>
+
+        <div class="mt-10 grid md:grid-cols-4 sm:grid-cols-2 gap-6">
+          <!-- Frontend -->
+          <div class="rounded-2xl border border-slate-200 dark:border-slate-700 p-5 bg-slate-50 dark:bg-slate-800">
+            <h3 class="font-semibold mb-3">Frontend</h3>
+            <ul class="space-y-2 text-sm text-slate-700 dark:text-slate-300">
+              <li>HTML5</li>
+              <li>CSS3 (Tailwind)</li>
+              <li>JavaScript</li>
+              <li>React / Vue (basic)</li>
+            </ul>
+          </div>
+          <!-- Backend -->
+          <div class="rounded-2xl border border-slate-200 dark:border-slate-700 p-5 bg-slate-50 dark:bg-slate-800">
+            <h3 class="font-semibold mb-3">Backend</h3>
+            <ul class="space-y-2 text-sm text-slate-700 dark:text-slate-300">
+              <li>Node.js (basic)</li>
+              <li>PHP (basic)</li>
+              <li>REST API (consuming)</li>
+            </ul>
+          </div>
+          <!-- Database -->
+          <div class="rounded-2xl border border-slate-200 dark:border-slate-700 p-5 bg-slate-50 dark:bg-slate-800">
+            <h3 class="font-semibold mb-3">Database</h3>
+            <ul class="space-y-2 text-sm text-slate-700 dark:text-slate-300">
+              <li>MySQL</li>
+              <li>SQLite</li>
+              <li>LocalStorage / IndexedDB</li>
+            </ul>
+          </div>
+          <!-- Tools -->
+          <div class="rounded-2xl border border-slate-200 dark:border-slate-700 p-5 bg-slate-50 dark:bg-slate-800">
+            <h3 class="font-semibold mb-3">Tools</h3>
+            <ul class="space-y-2 text-sm text-slate-700 dark:text-slate-300">
+              <li>Git & GitHub</li>
+              <li>Figma / Canva</li>
+              <li>Linux (basic)</li>
+              <li>Blender / Roblox Studio</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============== CONTACT (5/5) =============== -->
+    <section id="contact" class="min-h-[100svh] bg-slate-50 dark:bg-slate-950">
+      <div class="max-w-5xl mx-auto px-6 py-20 reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-center text-brand-700 dark:text-brand-200">Hubungi Saya</h2>
+        <p class="mt-3 text-center text-slate-600 dark:text-slate-300">Terbuka untuk kolaborasi, magang, atau proyek freelance.</p>
+
+        <div class="mt-10 grid md:grid-cols-2 gap-8">
+          <div class="space-y-4">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600 text-white">✉️</span>
+              <a href="mailto:jaluanwar05@gmail.com" class="hover:text-brand-600 dark:hover:text-brand-300">jaluanwar05@gmail.com</a>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600 text-white">📍</span>
+              <p>Bandung, Indonesia</p>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600 text-white">🔗</span>
+              <div class="flex gap-3">
+                <a class="underline underline-offset-4 hover:text-brand-600 dark:hover:text-brand-300" href="https://www.linkedin.com/in/jaka-anwar-53910137a/">LinkedIn</a>
+                <a class="underline underline-offset-4 hover:text-brand-600 dark:hover:text-brand-300" href="https://github.com/JakaZxx">GitHub</a>
+                <a class="underline underline-offset-4 hover:text-brand-600 dark:hover:text-brand-300" href="https://www.instagram.com/jakazx0/">Instagram</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form -->
+          <form class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-800/70 backdrop-blur p-6 space-y-4"
+                action="https://formsubmit.co/jaluanwar05@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="Pesan Baru dari Portofolio" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+
+            <div>
+              <label class="block text-sm mb-1">Nama</label>
+              <input required name="name" type="text" class="w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-4 py-2 outline-none focus:ring-2 focus:ring-brand-400" placeholder="Nama Anda" />
+            </div>
+            <div>
+              <label class="block text-sm mb-1">Email</label>
+              <input required name="email" type="email" class="w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-4 py-2 outline-none focus:ring-2 focus:ring-brand-400" placeholder="email@contoh.com" />
+            </div>
+            <div>
+              <label class="block text-sm mb-1">Pesan</label>
+              <textarea required name="message" rows="5" class="w-full resize-none rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-4 py-2 outline-none focus:ring-2 focus:ring-brand-400" placeholder="Tulis pesan di sini..."></textarea>
+            </div>
+            <button type="submit" class="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 text-white px-5 py-3 font-semibold shadow hover:bg-brand-500 active:scale-[.98] transition">
+              Kirim Pesan
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M13 5l7 7-7 7v-4H4v-6h9V5z"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =============== FOOTER =============== -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60">
+    <div class="max-w-6xl mx-auto px-6 py-6 text-center text-sm">
+      &copy; <span id="year"></span> Jalu Zakaria Anwar. Dibuat dengan ❤️
+    </div>
+  </footer>
+
+  <!-- =============== SCRIPTS =============== -->
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme Toggle (no persistence, sesuai permintaan)
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+    });
+
+    // Mobile menu
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobilePanel  = document.getElementById('mobilePanel');
+    const iconHamburger = document.getElementById('iconHamburger');
+    const iconClose = document.getElementById('iconClose');
+
+    mobileToggle.addEventListener('click', () => {
+      const open = mobilePanel.classList.toggle('hidden') === false;
+      iconHamburger.classList.toggle('hidden', open);
+      iconClose.classList.toggle('hidden', !open);
+    });
+
+    // Smooth close mobile menu on link click
+    mobilePanel.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobilePanel.classList.add('hidden');
+        iconHamburger.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+      });
+    });
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
+<script>
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });

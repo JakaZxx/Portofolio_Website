@@ -1,0 +1,4 @@
+/* Hilangkan scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}
