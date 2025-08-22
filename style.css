@@ -2,3 +2,145 @@
 ::-webkit-scrollbar {
   display: none;
 }
+
+/* Border Animation untuk Section Pengalaman */
+.experience-container {
+  position: relative;
+  border-radius: 1rem;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(90deg, #6366f1, #0ea5e9, #6366f1) border-box;
+  border: 3px solid transparent;
+  animation: borderAnimation 3s ease infinite;
+  transition: all 0.3s ease;
+}
+
+.dark .experience-container {
+  background: linear-gradient(#1f2937, #1f2937) padding-box,
+              linear-gradient(90deg, #818cf8, #38bdf8, #818cf8) border-box;
+}
+
+.experience-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.15);
+  animation-duration: 1.5s;
+}
+
+.dark .experience-container:hover {
+  box-shadow: 0 10px 25px rgba(129, 140, 248, 0.2);
+}
+
+@keyframes borderAnimation {
+  0% {
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(90deg, #6366f1, #0ea5e9, #6366f1) border-box;
+  }
+  25% {
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(90deg, #0ea5e9, #6366f1, #0ea5e9) border-box;
+  }
+  50% {
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(90deg, #6366f1, #0ea5e9, #6366f1) border-box;
+  }
+  75% {
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(90deg, #0ea5e9, #6366f1, #0ea5e9) border-box;
+  }
+  100% {
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(90deg, #6366f1, #0ea5e9, #6366f1) border-box;
+  }
+}
+
+/* Dark mode adjustments for border animation */
+.dark .experience-container {
+  background: linear-gradient(#1f2937, #1f2937) padding-box,
+              linear-gradient(90deg, #818cf8, #38bdf8, #818cf8) border-box;
+}
+
+/* Alternative border animation dengan pseudo-elements */
+.experience-container-alt {
+  position: relative;
+  border-radius: 1rem;
+  background: white;
+  border: 3px solid transparent;
+  overflow: hidden;
+}
+
+.dark .experience-container-alt {
+  background: #1f2937;
+}
+
+.experience-container-alt::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #6366f1, #0ea5e9, #6366f1, #0ea5e9);
+  background-size: 400% 400%;
+  animation: gradientMove 4s ease infinite;
+  z-index: -1;
+  border-radius: 1rem;
+}
+
+.dark .experience-container-alt::before {
+  background: linear-gradient(45deg, #818cf8, #38bdf8, #818cf8, #38bdf8);
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.experience-container-alt:hover::before {
+  animation-duration: 2s;
+}
+
+/* Pulse animation effect */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.6);
+  }
+}
+
+.experience-container-pulse {
+  animation: pulseGlow 2s ease-in-out infinite;
+  border: 2px solid #6366f1;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+}
+
+.dark .experience-container-pulse {
+  border-color: #818cf8;
+  animation: pulseGlowDark 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlowDark {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(129, 140, 248, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(129, 140, 248, 0.8);
+  }
+}
+
+.experience-container-pulse:hover {
+  animation-duration: 1s;
+  transform: scale(1.02);
+}
+
+.dark .experience-container-pulse:hover {
+  animation-duration: 1s;
+}
